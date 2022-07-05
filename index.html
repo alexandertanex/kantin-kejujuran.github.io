@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<!-- Open Live Server on Chrome -->
+
+  <head>
+    <!-- SEO META TAGS -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Indonesian">
+
+    <meta name="title" content="Kantin Kejujuran" />
+    <meta property="description" content="Kantin Kejujuran is a special shop by SD SEA Sentosa. It
+      consists of some items for sale by students and a box to store all the
+      purchased money. Everyone is free to look around, sell, and buy items
+      there. There is no shopkeeper there so everyone is also free to add or
+      withdraw the money in the box. Let's digitalize the feature!
+      " />
+    <meta name="author" content="William Alexander">
+    <meta name="keywords" content="Kantin Kejujuran ">
+    
+    <!-- JS for Canteen's Balance -->
+    <script>
+      var balance;
+      balance = 0;
+      function show_balance() {
+        document.getElementById("saldo").innerHTML = balance;
+      }
+      function pay(){
+        var payment = window.prompt("Enter the amount of payment (amount must be numbers only): ");
+        balance = balance + Number(payment);
+        alert("Payment successful");
+        show_balance();
+      }
+    
+      function withdraw(){
+        var withdraw_amount = window.prompt("Enter the amount to withdraw (amount must be numbers only): ");
+        balance = balance - Number(withdraw_amount);
+        if(balance<=0) balance=0;
+        alert("Withdraw successful");
+        show_balance();
+      }
+
+    </script>
+
+    <!-- External Linking -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet" />
+    <!-- CSS File -->
+    <link href="styles.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="logo.jpeg">
+
+    <title>Kantin Kejujuran</title>
+
+  </head>
+
+  <body onload="show_balance()">
+
+  <!-- Navbar -->
+
+  <div class="container-fluid m-0 p-0" id="nav-whitebar">
+    <nav class="container-xxl px-0 navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#" id="logo">
+        <img src="logo.jpeg" class="px-3 px-md-5" alt="Logo KK" width="180">
+      </a>
+      <h3 class="pt-2 text-info"><b>Kantin Kejujuran </b></h3>
+
+      <button class="navbar-toggler mx-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item px-3 pt-2">
+            <a class="nav-link active" href="#sell"></a>Canteen's Balance Rp <span id="saldo"></span>,-</a>
+          </li>
+          <li class="nav-item ps-3">
+            <button class="btn btn-primary" onclick="pay()">
+              Pay/Deposit
+            </button>
+          </li>
+          <li class="nav-item ps-3">
+            <button class="btn btn-primary" onclick="withdraw()">
+              Withdraw
+            </button>
+          </li>
+          <li class="nav-item ps-3 pe-5">
+            <a href="#sell">
+              <button class="btn btn-primary">
+                Sell an Item
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Few Words after navbar -->
+  <div class="container-xxl py-4 px-4" id="few-words">
+    <p>
+      <h2>Honesty is the best policy</h2>
+      Everyone is free to look around, sell, and buy items here. <br>
+      There is no shopkeeper. Everyone is also free to add or
+      withdraw the money in the e-box!
+    </p>
+  </div>
+
+  <!-- ITEMS LIST -->
+  <div class="container-xxl py-4 px-4" id="item-list">
+      Items for Sale<br>
+    <p> 
+      Sort by
+      <button>
+        v
+      </button>
+    </p><br>
+    <ul>
+      <li>
+        <span id="item1"></span>
+      </li>
+    </ul>
+    <p>
+      Maximum items for sale are 10
+    </p>
+    <script>
+      var count = get_count();
+      var item_list = get_list();
+      for(i = 1; i<=count; i++){
+
+      }
+    </script>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+
+  <!-- Sell an Item Section -->
+  <div class="nav-link container-xxl py-4 px-4" id="sell">
+    <h2>Sell an item</h2>
+    Please fill the item information to sell
+
+    <form id="sell-form" action="action.php" method="get">
+      Product name: <input type="text" name="product-name" id="product-name"><br>
+      Product Description: <input type="text" name="product-description" id="product-description"><br>
+      Price (in Rupiah): <input type="number" name="price" id="price"><br><br>
+      <button class="btn btn-primary">Upload Product Image</button><br><br>
+
+      <input type="button" onclick="sell()" type="submit" value="Submit">
+    </form>
+
+  </div>
+
+  <!-- JS for product list -->
+  <script>
+    var count = 0;
+    var item_list= [];
+    function sell(){
+      count++;
+      var p_name = document.getElementById("product-name").value;
+      var p_desc = document.getElementById("product-description").value;
+      var p_price = document.getElementById("price").value;
+      
+      item_list[count] = new item(p_name, p_desc, Number(p_price));
+    }
+
+    function get_count(){
+      return count;
+    }
+
+    function get_list(){
+      return item_list;
+    }
+
+    function item(p_name, p_desc, p_price){
+      this.name = p_name;
+      this.desc = p_desc;
+      this.price = Number(p_price);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous">
+  </script>
+
+  </body>
+</html>
